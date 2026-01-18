@@ -31,7 +31,7 @@ resource "aws_apigatewayv2_stage" "default" {
 
 resource "aws_lambda_permission" "allow_invoke" {
   for_each      = var.api_gateway_routes
-  statement_id  = "AllowAPIGatewayToCallSampleAppLambda"
+  statement_id = "AllowAPIGatewayInvoke-${md5(each.key)}"
   action        = "lambda:InvokeFunction"
   function_name = var.function_arn
   principal     = "apigateway.amazonaws.com"
